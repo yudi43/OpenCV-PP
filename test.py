@@ -1,3 +1,7 @@
+import cv2
 
-#this is just a test...
-#this is just another test...
+
+img = cv2.imread('resources/test.jpeg')
+
+cv2.imshow('output', img)
+cv2.waitKey(0)
