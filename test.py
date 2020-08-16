@@ -1,10 +1,21 @@
 import cv2
+import numpy as np
 
-cap = cv2.VideoCapture('resources/test.mp4')
+img = cv2.imread('resources/test.jpeg')
+kernel = np.ones((5, 5), np.uint8)
 
-print(cap)
-while(True):
-   success, img = cap.read()
-   cv2.imshow('Video', img)
-   if cv2.waitKey(1) & 0xFF == ord('q'):
-       break
+
+imgGrey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+imgBlur = cv2.GaussianBlur(imgGrey, (7, 7), 0)
+imgCanny = cv2.Canny(img, 100, 100)
+imgDialation = cv2.dilate(imgCanny, kernel, iterations = 1)
+imgEroded = cv2.erode(imgDialation, kernel, iterations = 1)
+
+cv2.imshow('Gray image', img)
+cv2.imshow('Gray image', imgGrey)
+cv2.imshow('Blur Image', imgBlur)
+cv2.imshow('Canny image', imgCanny)
+cv2.imshow('img dialation', imgDialation)
+cv2.imshow('img erode', imgEroded)
+
+cv2.waitKey(0)
